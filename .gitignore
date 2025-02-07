@@ -1,7 +1,9 @@
-# CMake Build
+# CMake
 CMakeFiles/
 cmake_install.cmake
 CMakeCache.txt
+
+# Build
 Makefile
 snake*
 
@@ -11,3 +13,7 @@ snake*
 # Visual Studio
 .vs/
 out/
+
+# vcpkg
+vcpkg_installed/
+vcpkg-manifest-install.log

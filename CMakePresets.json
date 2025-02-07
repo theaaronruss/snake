@@ -1,0 +1,14 @@
+{
+    "version": 2,
+    "configurePresets": [
+        {
+            "name": "mingw-make-vcpkg",
+            "displayName": "MinGW Makefiles vcpkg",
+            "generator": "MinGW Makefiles",
+            "binaryDir": "${sourceDir}/make_build",
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+            }
+        }
+    ]
+}
