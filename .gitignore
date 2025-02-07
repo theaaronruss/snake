@@ -16,4 +16,5 @@ out/
 
 # vcpkg
 vcpkg_installed/
+vcpkg-bootstrap.log
 vcpkg-manifest-install.log

@@ -4,7 +4,7 @@
 int main() {
     std::cout << "Hello, World!\n";
     SDL_Init(SDL_INIT_VIDEO);
-    SDL_Window* window = SDL_CreateWindow("Test", 640, 480, NULL);
+    SDL_Window* window = SDL_CreateWindow("Test", 640, 480, 0);
     bool running = true;
     while (running) {
         SDL_Event e;
