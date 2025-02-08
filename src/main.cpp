@@ -18,7 +18,7 @@ int main() {
             window.clear();
             window.update();
         }
-    } catch (const GameWindowException& e) {
+    } catch (const GameWindowCreationException& e) {
         SDL_Log("%s", e.what());
         SDL_Log("SDL error: %s", SDL_GetError());
     }

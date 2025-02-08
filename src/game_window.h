@@ -19,12 +19,12 @@ class GameWindow {
         void update();
 };
 
-class GameWindowException : public std::exception {
+class GameWindowCreationException {
     private:
         const char* message;
     public:
-        GameWindowException(const char* message) : message { message }{};
-        const char* what() const _NOEXCEPT override;
+        GameWindowCreationException(const char* message) : message { message }{};
+        const char* what() const { return message; };
 };
 
 #endif

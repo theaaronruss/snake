@@ -6,7 +6,7 @@ GameWindow::GameWindow() {
     SDL_Log("Creating game window and renderer");
     bool success = SDL_CreateWindowAndRenderer(title, width, height, 0, &window, &renderer);
     if (!success) {
-        throw GameWindowException("Failed to create game window and renderer");
+        throw GameWindowCreationException("Failed to create game window and renderer");
     }
 }
 
@@ -23,8 +23,4 @@ void GameWindow::clear() {
 
 void GameWindow::update() {
     SDL_RenderPresent(renderer);
-}
-
-const char* GameWindowException::what() const _NOEXCEPT {
-    return message;
 }
