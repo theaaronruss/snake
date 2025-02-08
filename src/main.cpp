@@ -15,6 +15,8 @@ int main() {
                     running = false;
                 }
             }
+            window.clear();
+            window.update();
         }
     } catch (const GameWindowException& e) {
         SDL_Log("%s", e.what());

@@ -16,6 +16,15 @@ GameWindow::~GameWindow() {
     SDL_DestroyWindow(window);
 }
 
+void GameWindow::clear() {
+    SDL_SetRenderDrawColor(renderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, 0xFF);
+    SDL_RenderClear(renderer);
+}
+
+void GameWindow::update() {
+    SDL_RenderPresent(renderer);
+}
+
 const char* GameWindowException::what() const _NOEXCEPT {
     return message;
 }

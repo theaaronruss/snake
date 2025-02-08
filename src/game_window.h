@@ -9,11 +9,14 @@ class GameWindow {
         static constexpr const char* title { "Snake" };
         static constexpr int width { 640 };
         static constexpr int height { 480 };
+        static constexpr SDL_Color backgroundColor { 0x00, 0x00, 0x00 };
         SDL_Window* window;
         SDL_Renderer* renderer;
     public:
         GameWindow();
         ~GameWindow();
+        void clear();
+        void update();
 };
 
 class GameWindowException : public std::exception {
