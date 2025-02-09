@@ -1,4 +1,5 @@
 #include "SDL3/SDL.h"
+#include "game.h"
 #include "game_window.h"
 #include <stdexcept>
 
@@ -16,6 +17,7 @@ int main() {
 				}
 			}
 			window.clear();
+			Game::render(window);
 			window.update();
 		}
 	} catch (const GameWindowCreationException& e) {

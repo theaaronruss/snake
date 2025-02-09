@@ -16,13 +16,13 @@ class GameWindow {
 		const SDL_Color pixelOnColor{ 0x4A, 0x51, 0x38 };
 		SDL_Window* window;
 		SDL_Renderer* renderer;
-		void setPixel(int pixelX, int pixelY, const SDL_Color& color);
+		void setPixel(int pixelX, int pixelY, const SDL_Color& color) const;
 	public:
 		GameWindow();
 		~GameWindow();
 		void clear();
 		void turnPixelOff(int pixelX, int pixelY);
-		void turnPixelOn(int pixelX, int pixelY);
+		void turnPixelOn(int pixelX, int pixelY) const;
 		void update();
 };
 

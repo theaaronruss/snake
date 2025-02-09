@@ -25,11 +25,11 @@ void GameWindow::turnPixelOff(int pixelX, int pixelY) {
 	setPixel(pixelX, pixelY, pixelOffColor);
 }
 
-void GameWindow::turnPixelOn(int pixelX, int pixelY) {
+void GameWindow::turnPixelOn(int pixelX, int pixelY) const {
 	setPixel(pixelX, pixelY, pixelOnColor);
 }
 
-void GameWindow::setPixel(int pixelX, int pixelY, const SDL_Color& color)
+void GameWindow::setPixel(int pixelX, int pixelY, const SDL_Color& color) const
 {
 	if (pixelX < 0 || pixelX >= widthPixels ||
 		pixelY < 0 || pixelY >= heightPixels) {
