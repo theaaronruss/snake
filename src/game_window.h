@@ -7,15 +7,22 @@
 class GameWindow {
     private:
         static constexpr const char* title { "Snake" };
-        static constexpr int width { 640 };
-        static constexpr int height { 480 };
-        static constexpr SDL_Color backgroundColor { 0x00, 0x00, 0x00 };
+        static constexpr int pixelSize{ 20 };
+        static constexpr int width{ pixelSize * 32 };
+        static constexpr int height{ pixelSize * 24 };
+        static constexpr int widthPixels{ width / pixelSize };
+        static constexpr int heightPixels{ height / pixelSize };
+        static constexpr SDL_Color pixelOffColor{ 0xC5, 0xCA, 0xA4 };
+        static constexpr SDL_Color pixelOnColor{ 0x4A, 0x51, 0x38 };
         SDL_Window* window;
         SDL_Renderer* renderer;
+        void setPixel(int pixelX, int pixelY, const SDL_Color& color);
     public:
         GameWindow();
         ~GameWindow();
         void clear();
+        void turnPixelOff(int pixelX, int pixelY);
+        void turnPixelOn(int pixelX, int pixelY);
         void update();
 };
 

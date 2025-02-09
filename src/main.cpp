@@ -7,7 +7,7 @@ int main() {
     SDL_Init(SDL_INIT_VIDEO);
     try {
         GameWindow window;
-        bool running { true };
+        bool running{ true };
         while (running) {
             SDL_Event event;
             while (SDL_PollEvent(&event)) {
