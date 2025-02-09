@@ -2,14 +2,20 @@
 #define GAME_H
 
 #include "game_window.h"
+//#include "point.h"
+#include <deque>
+
+struct Point {
+	int x;
+	int y;
+};
 
 class Snake {
 	private:
-		int headX{ 16 };
-		int headY{ 12 };
+		std::deque<Point> body;
 	public:
-		int getHeadX();
-		int getHeadY();
+		Snake();
+		const std::deque<Point>& getBody() const;
 };
 
 namespace Game {
