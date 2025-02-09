@@ -12,8 +12,8 @@ class GameWindow {
 		static constexpr int height{ pixelSize * 24 };
 		static constexpr int widthPixels{ width / pixelSize };
 		static constexpr int heightPixels{ height / pixelSize };
-		static constexpr SDL_Color pixelOffColor{ 0xC5, 0xCA, 0xA4 };
-		static constexpr SDL_Color pixelOnColor{ 0x4A, 0x51, 0x38 };
+		const SDL_Color pixelOffColor{ 0xC5, 0xCA, 0xA4 };
+		const SDL_Color pixelOnColor{ 0x4A, 0x51, 0x38 };
 		SDL_Window* window;
 		SDL_Renderer* renderer;
 		void setPixel(int pixelX, int pixelY, const SDL_Color& color);
