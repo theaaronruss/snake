@@ -2,7 +2,6 @@
 #define GAME_H
 
 #include "game_window.h"
-//#include "point.h"
 #include <deque>
 
 struct Point {
