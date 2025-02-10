@@ -9,6 +9,13 @@ Snake::Snake() {
 }
 
 void Snake::changeDirection(Direction newDirection) {
+	// prevent player from choosing a direction that will result in immediately losing
+	if (direction == Direction::UP && newDirection == Direction::DOWN
+		|| direction == Direction::DOWN && newDirection == Direction::UP
+		|| direction == Direction::LEFT && newDirection== Direction::RIGHT
+		|| direction == Direction::RIGHT && newDirection == Direction::LEFT) {
+		return;
+	}
 	direction = newDirection;
 }
 
