@@ -10,7 +10,6 @@ struct Point {
 };
 
 enum class Direction {
-	NONE,
 	UP,
 	DOWN,
 	LEFT,
@@ -19,8 +18,9 @@ enum class Direction {
 
 class Snake {
 	private:
+		bool frozen{ true };
 		std::deque<Point> body;
-		Direction direction{ Direction::NONE };
+		Direction direction{ Direction::DOWN };
 	public:
 		Snake();
 		void changeDirection(Direction newDirection);

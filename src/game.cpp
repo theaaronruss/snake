@@ -16,6 +16,9 @@ void Snake::changeDirection(Direction newDirection) {
 		|| direction == Direction::RIGHT && newDirection == Direction::LEFT) {
 		return;
 	}
+	if (frozen) {
+		frozen = false;
+	}
 	direction = newDirection;
 }
 
@@ -24,7 +27,7 @@ const std::deque<Point>& Snake::getBody() const {
 }
 
 void Snake::update() {
-	if (direction == Direction::NONE) {
+	if (frozen) {
 		return;
 	}
 	Point currentHead = body.at(0);
