@@ -4,7 +4,6 @@
 #include <stdexcept>
 
 int main() {
-	SDL_Log("Initializing SDL");
 	SDL_Init(SDL_INIT_VIDEO);
 	try {
 		GameWindow window;
@@ -24,7 +23,6 @@ int main() {
 		SDL_Log("%s", e.what());
 		SDL_Log("SDL error: %s", SDL_GetError());
 	}
-	SDL_Log("Quitting SDL");
 	SDL_Quit();
 	return 0;
 }
