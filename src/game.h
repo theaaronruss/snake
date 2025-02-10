@@ -25,11 +25,13 @@ class Snake {
 		void changeDirection(Direction newDirection);
 		const std::deque<Point>& getBody() const;
 		void update();
+		const Point getHead() const;
 };
 
 namespace Game {
+	extern bool isGameOver;
 	extern Snake snake;
-	void update();
+	void update(int windowWidth, int windowHeight);
 	void render(const GameWindow& window);
 }
 

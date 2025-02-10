@@ -14,6 +14,14 @@ GameWindow::~GameWindow() {
 	SDL_DestroyWindow(window);
 }
 
+int GameWindow::getPixelWidth() {
+	return widthPixels;
+}
+
+int GameWindow::getPixelHeight() {
+	return heightPixels;
+}
+
 void GameWindow::clear() {
 	SDL_SetRenderDrawColor(renderer, pixelOffColor.r, pixelOffColor.g, pixelOffColor.b, 0xFF);
 	SDL_RenderClear(renderer);

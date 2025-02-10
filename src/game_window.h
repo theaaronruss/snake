@@ -20,6 +20,8 @@ class GameWindow {
 	public:
 		GameWindow();
 		~GameWindow();
+		int getPixelWidth();
+		int getPixelHeight();
 		void clear();
 		void turnPixelOff(int pixelX, int pixelY);
 		void turnPixelOn(int pixelX, int pixelY) const;

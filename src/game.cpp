@@ -41,10 +41,21 @@ void Snake::update() {
 	body.pop_back();
 }
 
+const Point Snake::getHead() const {
+	return body[0];
+}
+
+bool Game::isGameOver{ false };
+
 Snake Game::snake{};
 
-void Game::update() {
+void Game::update(int windowWidth, int windowHeight) {
 	snake.update();
+	Point snakeHead = snake.getHead();
+	if (snakeHead.x < 0 || snakeHead.x >= windowWidth
+		|| snakeHead.y < 0 || snakeHead.y >= windowHeight) {
+		isGameOver = true;
+	}
 }
 
 void Game::render(const GameWindow &window) {

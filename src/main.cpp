@@ -10,7 +10,7 @@ int main() {
 		bool running{ true };
 		const long updateInterval{ 1000 / 15 };
 		long lastUpdateTime{ 0 };
-		while (running) {
+		while (running && !Game::isGameOver) {
 			SDL_Event event;
 			while (SDL_PollEvent(&event)) {
 				if (event.type == SDL_EVENT_QUIT) {
@@ -30,7 +30,7 @@ int main() {
 			long now = SDL_GetTicks();
 			window.clear();
 			if (now - lastUpdateTime > updateInterval) {
-				Game::update();
+				Game::update(window.getPixelWidth(), window.getPixelHeight());
 				lastUpdateTime = now;
 			}
 			Game::render(window);
