@@ -24,6 +24,9 @@ const std::deque<Point>& Snake::getBody() const {
 }
 
 void Snake::update() {
+	if (direction == Direction::NONE) {
+		return;
+	}
 	Point currentHead = body.at(0);
 	if (direction == Direction::UP) {
 		currentHead.y--;
