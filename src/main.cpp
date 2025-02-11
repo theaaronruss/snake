@@ -8,7 +8,7 @@ int main() {
 	try {
 		GameWindow window;
 		bool running{ true };
-		const long updateInterval{ 1000 / 15 };
+		const long updateInterval{ 1000 / 10 };
 		long lastUpdateTime{ 0 };
 		Game::getNewFoodLocation(window.getPixelWidth(), window.getPixelHeight());
 		while (running && !Game::isGameOver) {
