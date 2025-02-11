@@ -5,7 +5,6 @@
 Snake::Snake() {
 	body.push_front(Point{ 16, 12 }); // head
 	body.push_back(Point{ 16, 11 });
-	body.push_back(Point{ 16, 10 });
 }
 
 void Snake::changeDirection(Direction newDirection) {
