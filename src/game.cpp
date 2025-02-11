@@ -1,5 +1,6 @@
 #include "game.h"
 #include "game_window.h"
+#include <algorithm>
 #include <deque>
 #include <random>
 
@@ -67,7 +68,8 @@ int Game::points{ 0 };
 
 void Game::update(int windowWidth, int windowHeight) {
 	snake.update();
-	Point snakeHead = snake.getHead();
+	std::deque<Point> snakeBody = snake.getBody();
+	const Point snakeHead = snake.getHead();
 	Point oldTail = snake.getTail();
 	if (snakeHead.x < 0 || snakeHead.x >= windowWidth
 		|| snakeHead.y < 0 || snakeHead.y >= windowHeight) {
@@ -77,6 +79,12 @@ void Game::update(int windowWidth, int windowHeight) {
 		points++;
 		getNewFoodLocation(windowWidth, windowHeight);
 		snake.getBody().push_back(oldTail);
+	}
+	auto it = std::find_if(snakeBody.begin() + 1, snakeBody.end(), [&snakeHead](const Point p) {
+		return p.x == snakeHead.x && p.y == snakeHead.y;
+	});
+	if (it != snakeBody.end()) {
+		isGameOver = true;
 	}
 }
 
