@@ -25,9 +25,10 @@ class Snake {
 	public:
 		Snake();
 		void changeDirection(Direction newDirection);
-		const std::deque<Point>& getBody() const;
+		std::deque<Point>& getBody();
 		void update();
 		const Point getHead() const;
+		const Point getTail() const;
 };
 
 namespace Game {

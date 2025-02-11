@@ -22,7 +22,7 @@ void Snake::changeDirection(Direction newDirection) {
 	direction = newDirection;
 }
 
-const std::deque<Point>& Snake::getBody() const {
+std::deque<Point>& Snake::getBody() {
 	return body;
 }
 
@@ -51,6 +51,10 @@ const Point Snake::getHead() const {
 	return body[0];
 }
 
+const Point Snake::getTail() const {
+	return body[body.size() - 1];
+}
+
 bool Game::isGameOver{ false };
 
 Snake Game::snake{};
@@ -64,6 +68,7 @@ int Game::points{ 0 };
 void Game::update(int windowWidth, int windowHeight) {
 	snake.update();
 	Point snakeHead = snake.getHead();
+	Point oldTail = snake.getTail();
 	if (snakeHead.x < 0 || snakeHead.x >= windowWidth
 		|| snakeHead.y < 0 || snakeHead.y >= windowHeight) {
 		isGameOver = true;
@@ -71,6 +76,7 @@ void Game::update(int windowWidth, int windowHeight) {
 	if (snakeHead.x == food.x && snakeHead.y == food.y) {
 		points++;
 		getNewFoodLocation(windowWidth, windowHeight);
+		snake.getBody().push_back(oldTail);
 	}
 }
 
