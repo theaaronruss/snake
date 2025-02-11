@@ -10,6 +10,7 @@ int main() {
 		bool running{ true };
 		const long updateInterval{ 1000 / 15 };
 		long lastUpdateTime{ 0 };
+		Game::getNewFoodLocation(window.getPixelWidth(), window.getPixelHeight());
 		while (running && !Game::isGameOver) {
 			SDL_Event event;
 			while (SDL_PollEvent(&event)) {

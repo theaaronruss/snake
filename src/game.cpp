@@ -1,6 +1,7 @@
 #include "game.h"
 #include "game_window.h"
 #include <deque>
+#include <random>
 
 Snake::Snake() {
 	body.push_front(Point{ 16, 12 }); // head
@@ -54,6 +55,12 @@ bool Game::isGameOver{ false };
 
 Snake Game::snake{};
 
+std::default_random_engine Game::generator{};
+
+Point Game::food{};
+
+int Game::points{ 0 };
+
 void Game::update(int windowWidth, int windowHeight) {
 	snake.update();
 	Point snakeHead = snake.getHead();
@@ -61,10 +68,23 @@ void Game::update(int windowWidth, int windowHeight) {
 		|| snakeHead.y < 0 || snakeHead.y >= windowHeight) {
 		isGameOver = true;
 	}
+	if (snakeHead.x == food.x && snakeHead.y == food.y) {
+		points++;
+		getNewFoodLocation(windowWidth, windowHeight);
+	}
 }
 
 void Game::render(const GameWindow &window) {
 	for (Point pixel : snake.getBody()) {
 		window.turnPixelOn(pixel.x, pixel.y);
 	}
+	window.turnPixelOn(food.x, food.y);
+}
+
+void Game::getNewFoodLocation(int windowWidth, int windowHeight) {
+	std::uniform_int_distribution<int> distributionX(0, windowWidth - 1);
+	std::uniform_int_distribution<int> distributionY(0, windowHeight - 1);
+	int x = distributionX(generator);
+	int y = distributionY(generator);
+	food = Point{ x, y };
 }
