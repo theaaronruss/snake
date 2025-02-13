@@ -1,6 +1,7 @@
 #include "SDL3/SDL.h"
 #include "game.h"
 #include "game_window.h"
+#include <iostream>
 #include <stdexcept>
 
 int main() {
@@ -37,6 +38,7 @@ int main() {
 			Game::render(window);
 			window.update();
 		}
+		std::cout << "Score: " << Game::points << "\n";
 	} catch (const GameWindowCreationException& e) {
 		SDL_Log("%s", e.what());
 		SDL_Log("SDL error: %s", SDL_GetError());
