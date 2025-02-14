@@ -1,10 +1,10 @@
-#include "SDL3/SDL.h"
+#include "SDL2/SDL.h"
 #include "game_window.h"
 #include <stdexcept>
 
 GameWindow::GameWindow() {
-	bool success = SDL_CreateWindowAndRenderer(title, width, height, 0, &window, &renderer);
-	if (!success) {
+	int status = SDL_CreateWindowAndRenderer(width, height, 0, &window, &renderer);
+	if (status == -1) {
 		throw GameWindowCreationException("Failed to create game window and renderer");
 	}
 }
@@ -42,7 +42,7 @@ void GameWindow::setPixel(int pixelX, int pixelY, const SDL_Color& color) const
 		return;
 	}
 	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 0xFF);
-	SDL_FRect pixel{ static_cast<float>(pixelX * pixelSize), static_cast<float>(pixelY * pixelSize), pixelSize, pixelSize };
+	SDL_Rect pixel{ pixelX * pixelSize, pixelY * pixelSize, pixelSize, pixelSize };
 	SDL_RenderFillRect(renderer, &pixel);
 }
 

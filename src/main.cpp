@@ -1,4 +1,4 @@
-#include "SDL3/SDL.h"
+#include "SDL2/SDL.h"
 #include "game.h"
 #include "game_window.h"
 #include <iostream>
@@ -15,16 +15,16 @@ int main() {
 		while (running && !Game::isGameOver) {
 			SDL_Event event;
 			while (SDL_PollEvent(&event)) {
-				if (event.type == SDL_EVENT_QUIT) {
+				if (event.type == SDL_QUIT) {
 					running = false;
-				} else if (event.type == SDL_EVENT_KEY_DOWN) {
-					if (event.key.key == SDLK_UP) {
+				} else if (event.type == SDL_KEYDOWN) {
+					if (event.key.keysym.sym == SDLK_UP) {
 						Game::snake.changeDirection(Direction::UP);
-					} else if (event.key.key == SDLK_DOWN) {
+					} else if (event.key.keysym.sym == SDLK_DOWN) {
 						Game::snake.changeDirection(Direction::DOWN);
-					} else if (event.key.key == SDLK_LEFT) {
+					} else if (event.key.keysym.sym == SDLK_LEFT) {
 						Game::snake.changeDirection(Direction::LEFT);
-					} else if (event.key.key == SDLK_RIGHT) {
+					} else if (event.key.keysym.sym == SDLK_RIGHT) {
 						Game::snake.changeDirection(Direction::RIGHT);
 					}
 				}
