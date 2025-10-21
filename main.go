@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
 	"time"
 
@@ -37,6 +38,7 @@ const (
 var (
 	screen = make([]byte, width*height)
 	player = newSnake()
+	target point
 )
 
 func newSnake() *snake {
@@ -52,8 +54,19 @@ func newSnake() *snake {
 	return &s
 }
 
-func (s *snake) move() {
-	s.body = s.body[1:]
+func newTarget() {
+	x := rand.Intn(pixelWidth-2) + 1
+	y := rand.Intn(pixelHeight-2) + 1
+	target = point{
+		x: x,
+		y: y,
+	}
+}
+
+func (s *snake) move(grow bool) {
+	if !grow {
+		s.body = s.body[1:]
+	}
 	head := s.head()
 	newPoint := point{x: head.x + s.dirX, y: head.y + s.dirY}
 	s.body = append(s.body, newPoint)
@@ -84,6 +97,7 @@ func main() {
 	defer term.Restore(fd, oldState)
 
 	drawBorder()
+	newTarget()
 
 	c := make(chan int)
 	go handleInput(c)
@@ -116,9 +130,15 @@ func main() {
 			startTime := time.Now()
 			tail := player.tail()
 			setPixel(tail.x, tail.y, false)
-			player.move()
 			head := player.head()
 			setPixel(head.x, head.y, true)
+			grow := false
+			if head.x == target.x && head.y == target.y {
+				newTarget()
+				grow = true
+			}
+			player.move(grow)
+			setPixel(target.x, target.y, true)
 			renderScreen()
 			elapsedTime := time.Since(startTime)
 			frameTime := time.Duration(1000.0/fps) * time.Millisecond
