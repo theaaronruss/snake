@@ -96,6 +96,7 @@ func main() {
 		os.Exit(1)
 	}
 	defer term.Restore(fd, oldState)
+	defer fmt.Print("\033[?25h") // show cursor
 
 	drawBorder()
 	newTarget()
@@ -150,7 +151,6 @@ func main() {
 			time.Sleep(frameTime - elapsedTime)
 		}
 	}
-	fmt.Print("\033[?25h") // show cursor
 }
 
 func drawBorder() {
