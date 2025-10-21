@@ -39,6 +39,7 @@ var (
 	screen = make([]byte, width*height)
 	player = newSnake()
 	target point
+	score  int
 )
 
 func newSnake() *snake {
@@ -134,6 +135,7 @@ func main() {
 			grow := false
 			if head.x == target.x && head.y == target.y {
 				newTarget()
+				score++
 				grow = true
 			} else if testPixel(head.x, head.y) {
 				done = true
@@ -198,7 +200,7 @@ func testPixel(x int, y int) bool {
 }
 
 func renderScreen() {
-	fmt.Printf("\033[%dA", height+1)
+	fmt.Printf("\033[%dA", height+2)
 	for y := range height {
 		for x := range width {
 			char := screen[y*width+x]
@@ -206,6 +208,7 @@ func renderScreen() {
 		}
 		fmt.Print("\r\n")
 	}
+	fmt.Printf("Score: %d\r\n", score)
 }
 
 func handleInput(c chan<- int) {
