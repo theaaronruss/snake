@@ -29,8 +29,8 @@ const (
 
 const (
 	fps         int = 15
-	width       int = 60
-	height      int = 30
+	width       int = 30
+	height      int = 15
 	pixelWidth  int = width * 2
 	pixelHeight int = height * 4
 )
@@ -131,12 +131,15 @@ func main() {
 			tail := player.tail()
 			setPixel(tail.x, tail.y, false)
 			head := player.head()
-			setPixel(head.x, head.y, true)
 			grow := false
 			if head.x == target.x && head.y == target.y {
 				newTarget()
 				grow = true
+			} else if testPixel(head.x, head.y) {
+				done = true
+				break
 			}
+			setPixel(head.x, head.y, true)
 			player.move(grow)
 			setPixel(target.x, target.y, true)
 			renderScreen()
@@ -177,6 +180,21 @@ func setPixel(x int, y int, on bool) {
 		pixelGroup &= ^mask
 	}
 	screen[groupY*width+groupX] = pixelGroup
+}
+
+func testPixel(x int, y int) bool {
+	if x < 0 || x >= pixelWidth || y < 0 || y >= pixelHeight {
+		return true
+	}
+
+	groupX := x / 2
+	groupY := y / 4
+	dotX := x % 2
+	dotY := y % 4
+
+	pixelGroup := screen[groupY*width+groupX]
+	var mask byte = 0x80 >> (dotY*2 + dotX)
+	return pixelGroup&mask > 0
 }
 
 func renderScreen() {
