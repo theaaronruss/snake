@@ -20,6 +20,13 @@ type snake struct {
 }
 
 const (
+	up    int = iota
+	down  int = iota
+	left  int = iota
+	right int = iota
+)
+
+const (
 	fps         int = 15
 	width       int = 60
 	height      int = 30
@@ -70,7 +77,7 @@ func main() {
 
 	drawBorder()
 
-	c := make(chan byte)
+	c := make(chan int)
 	go handleInput(c)
 	done := false
 	fmt.Print("\033[?25l")     // hide cursor
@@ -81,19 +88,19 @@ func main() {
 			if !ok {
 				done = true
 			}
-			if input == 'j' {
+			if input == down {
 				player.dirX = 0
 				player.dirY = 1
 			}
-			if input == 'k' {
+			if input == up {
 				player.dirX = 0
 				player.dirY = -1
 			}
-			if input == 'h' {
+			if input == left {
 				player.dirX = -1
 				player.dirY = 0
 			}
-			if input == 'l' {
+			if input == right {
 				player.dirX = 1
 				player.dirY = 0
 			}
@@ -165,16 +172,36 @@ func drawSnake() {
 	}
 }
 
-func handleInput(c chan<- byte) {
+func handleInput(c chan<- int) {
 	done := false
-	buf := make([]byte, 1)
+	buf := make([]byte, 3)
 	for !done {
-		os.Stdin.Read(buf)
-		input := buf[0]
-		if input == 'q' {
-			done = true
-		} else {
-			c <- buf[0]
+		n, _ := os.Stdin.Read(buf)
+		switch n {
+		case 1:
+			switch buf[0] {
+			case 'q':
+				done = true
+			case 'j':
+				c <- down
+			case 'k':
+				c <- up
+			case 'h':
+				c <- left
+			case 'l':
+				c <- right
+			}
+		case 3:
+			switch buf[2] {
+			case 'A':
+				c <- up
+			case 'B':
+				c <- down
+			case 'C':
+				c <- right
+			case 'D':
+				c <- left
+			}
 		}
 	}
 	close(c)
