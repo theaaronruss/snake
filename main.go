@@ -44,20 +44,28 @@ func newSnake() *snake {
 		body: make([]point, 5),
 		dirX: 1,
 	}
-	s.body[0] = point{x: 15, y: 15}
-	s.body[1] = point{x: 14, y: 15}
+	s.body[0] = point{x: 11, y: 15}
+	s.body[1] = point{x: 12, y: 15}
 	s.body[2] = point{x: 13, y: 15}
-	s.body[3] = point{x: 12, y: 15}
-	s.body[4] = point{x: 11, y: 15}
+	s.body[3] = point{x: 14, y: 15}
+	s.body[4] = point{x: 15, y: 15}
 	return &s
 }
 
 func (s *snake) move() {
-	length := len(s.body)
 	s.body = s.body[1:]
-	head := s.body[length-2]
+	head := s.head()
 	newPoint := point{x: head.x + s.dirX, y: head.y + s.dirY}
 	s.body = append(s.body, newPoint)
+}
+
+func (s *snake) head() point {
+	length := len(s.body)
+	return s.body[length-1]
+}
+
+func (s *snake) tail() point {
+	return s.body[0]
 }
 
 func main() {
@@ -88,27 +96,29 @@ func main() {
 			if !ok {
 				done = true
 			}
-			if input == down {
+			if input == down && player.dirY != -1 {
 				player.dirX = 0
 				player.dirY = 1
 			}
-			if input == up {
+			if input == up && player.dirY != 1 {
 				player.dirX = 0
 				player.dirY = -1
 			}
-			if input == left {
+			if input == left && player.dirX != 1 {
 				player.dirX = -1
 				player.dirY = 0
 			}
-			if input == right {
+			if input == right && player.dirX != -1 {
 				player.dirX = 1
 				player.dirY = 0
 			}
 		default:
 			startTime := time.Now()
-			eraseSnake()
+			tail := player.tail()
+			setPixel(tail.x, tail.y, false)
 			player.move()
-			drawSnake()
+			head := player.head()
+			setPixel(head.x, head.y, true)
 			renderScreen()
 			elapsedTime := time.Since(startTime)
 			frameTime := time.Duration(1000.0/fps) * time.Millisecond
@@ -157,18 +167,6 @@ func renderScreen() {
 			fmt.Printf("%c", pixelGroupRune(char))
 		}
 		fmt.Print("\r\n")
-	}
-}
-
-func eraseSnake() {
-	for _, p := range player.body {
-		setPixel(p.x, p.y, false)
-	}
-}
-
-func drawSnake() {
-	for _, p := range player.body {
-		setPixel(p.x, p.y, true)
 	}
 }
 
